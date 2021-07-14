@@ -1,0 +1,14 @@
+A Test Suite is the entire set of tests that accompanies your program or application. 
+  You can think of it as all of the tests for a project.
+
+A Test is a specific situation or context that you're attempting to test. 
+  For instance, a test may attempt to verify that you get an error message when you try to log in with the wrong password. 
+  Each test can contain multiple assertions. You may sometimes see tests referred to as specs.
+  
+An Assertion is the verification step that confirms that your program did what it should. 
+  In particular, many assertions test whether the return value of a function or method matches the expected results. 
+  You can make multiple assertions within a test. Assertions are also called expectations.
+
+jest
+jest filename.test.js
+jest --coverage filename.test.js

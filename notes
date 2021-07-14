@@ -1,0 +1,19 @@
+- Visibility Scope - Global or local scope
+  - Global
+  - Local
+    - Local block
+    - Local function
+  `var` is either global or local function
+  `let` is either global or local block or local function
+
+- Declared Scope - Block or function scope
+  - Block scope: `let`, `const`, `class`
+  - Function scope: `var`, `function`
+
+- Lexical Scope - Inner or outer scope
+  - `let` depends on blocks - `{}`
+  - `var` depends on functions - `function xyzzy(){}`
+
+Use declared scope when you're talking about how an identifier is declared.
+Use visibility scope when you're talking about the visibility of a specific identifier.
+Use lexical scope when you want to talk about whether something is "in scope" -- that is, whether it is available for use.
