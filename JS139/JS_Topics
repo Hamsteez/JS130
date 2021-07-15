@@ -1,0 +1,133 @@
+JavaScript Topics
+  [x]Hoisting
+  [x]The var statement
+  [x]Strict mode
+  [x, x, ]Closures, scope, and private data
+  []Partial function application
+  []IIFEs
+  []Shorthand notation (understanding, not using)
+  []Modules (CommonJS)
+  []Exceptions
+  []Pure functions and side effects
+  []Asynchronous programming (setTimeout, setInterval)
+
+- The var Statement
+  Using var at the top level of a program creates a property on the global object. `let` does not do that. When var is used within
+    a function, the variable is not stored as a property of the global object. -This is when we use Node REPL and not in a file
+  `let` is block scoped
+  var is function scoped.
+
+- Scope
+  Visibility Scope - where a particular identifier (variable, function or class name) is available for use by your code. If it is
+    available throughout your code, it has a global scope, otherwise it has local scope.
+
+  Declared Scope - How a particular identifier is declared.
+
+  Lexical Scope - Lexical structure of your code. Lexical scope distinguishes between variables that are declared inside a function
+    or block and the variables that are declared outside a function or block.
+
+  - Visibility Scope - Global or local scope
+    - Global
+    - Local
+      - Local block
+      - Local function
+    `var` is either global or local function
+    `let` is either global or local block or local function
+
+  - Declared Scope - Block or function scope
+    - Block scope: `let`, `const`, `class`
+    - Function scope: `var`, `function`
+
+  - Lexical Scope - Inner or outer scope
+    - `let` depends on blocks - `{}`
+    - `var` depends on functions - `function xyzzy(){}`
+
+  Use declared scope when you're talking about how an identifier is declared.
+  Use visibility scope when you're talking about the visibility of a specific identifier.
+  Use lexical scope when you want to talk about whether something is "in scope" in relation to a block or function
+   -- that is, whether it is available for use.
+
+- Hoisting
+  JS engine operates in 2 main phases: creation and execution phase.
+  Execution occurs when the program runs code line by line
+  Before execution begins, creation phase does something - find all of the variable, function and class declarations. When it
+    encounters each of these identifiers, it records the name and designates its scope.
+  Hoisting - when code acts like the declarations were moved to the top of their respective scope. In particular, function scoped
+    declarations are moved to the functions beginning, and block scoped declarations are moved to the blocks start.
+  All declarations get hoisted to the top of their defined scope.
+  Hoisting does not change the program.
+  When var is hoisted, it is given an initial value of `undefined`. 
+  When `let` and `const` are hoisted, they arent given an initial value but are left in an "unset" state.
+    - In the temporal dead zone. (TDZ) Remains in TDZ until initialization code runs during execution phase.
+  Trying to access a `let` or `const` variable that is in TDZ rasises a reference error but JS is aware that is exists.
+  When JS hoists a function declaration to the top of the scope, it hoists the entire function declaration including the body.
+  Function expressions follow regular variable hoisting rules since you declare the variable and assign it to a function.
+  When a var variable and function declaration have the same name, the var variable gets discared and the function declaration gets
+    hoisted to the top.
+  Best practice:
+    If you must use var, declare all of the variables at the top of the scope.
+    Declare `let` and `const` as close to their first usage as possible.
+    Declare functions before calling them.
+  Hoisting is just a mental model for developers.
+  The way hoisting actually works is that during the creation phase, JS engine runs through the code from top down. Then it "hoists"
+    what needs to be hoisted and then goes to execution phase to run the program line by line referencing all the declartions from 
+    the creation phase.
+  
+- Strict Mode
+  Strict mode has 3 significant changes:
+    Elimantes silent errors (silent error occurs when a program does something that is unintended but continues as though nothing is
+      wrong)
+    Prevents some code that can inhibit JS ebility to optimize a program so that it runs faster
+    Prohibits using names and syntac that may conflict with fuuture versions of JS
+  Benefits to the developers:
+    They prevent or mitigate bugs.
+    They help make debugging easier.
+    They help your code run faster.
+    They help you avoid conflicts with future changes to the language.
+  Enable strict mode: `"use strict";`
+  Nested functions inherit strict mode from surrounding scope.
+  Use of Pragma - tells compiler to process code in a different way
+  Cant disable strict mode after enabled
+  Can be used within a function body only
+  Classes and modules automatically use strict mode naturally
+  Cant set a variable without a declarer
+  Numbers that look like octal numbers raise an error
+  Prevents any number literal from beginning with 0 or -0 except for 0 itself (or 0 with a decimal component, e.g., 0.123).
+  (*) prevents you from using function declarations in blocks.
+  (*) prevents declaring two properties with the same name in an object.
+  prevents declaring two function parameters with the same name.
+  prevents using some newer reserved keywords, such as let and static, as variable names.
+  prevents you from using the delete operator on a variable name.
+  forbids binding of eval and arguments in any way.
+  disables access to some properties of the arguments object in functions.
+  disables the with statement, a statement whose use is not recommended even in sloppy mode.
+  (*) These prohibitions were in effect for ES5, but both are now allowed. However, we recommend that you avoid declaring functions 
+    inside blocks and declaring multiple properties with the same name. ESLint will flag these problems.
+  When to use strict mode:
+    New code that you write
+    If adding new function to old code base, use function level strict mode
+    Dont use it on an old code bases entire code
+  Summary:
+  You cannot create global variables implicitly.
+  Functions won't use the global object as their implicit context.
+  Forgetting to use this in a method raises an error.
+  Leading zeros on numeric integers are illegal.
+
+- Closures
+  Let a function that was in lexical scope at the function definition point even when that variable is no longer in scope.
+  The combination of a function and the lexical environment within which that function was defined. 
+  Closures are created when define a function or method. - Closes over whatever is in its lexical scope where defined. 
+  Closures only packet the variables that the function uses.
+  Creates an envelope with a pointer to the variable. Any changes made to that variable will be made to the variable within the
+    closure for the function
+  Closure first looks at its local scope when it encounters a variable name during exec, if it cant find it then it checks the
+    envelope to see if it is present there.
+  Each time a closure is created, a new set of local variables are put into each respective envelope.
+
+- Partial Function Application
+  When you apply some of the functions arguments in the first invokation and another part of the arguments when you call the
+    returned function.
+  Refers to the creation of a function that can call a second function with fewer arguments than the second function expects.
+    The created function applies the remaining arguments.
+  PFA requires a reduction in the number of arguments you have to provide when you call a function. If the number of args isnt
+    reduced, it isnt partial function application.
