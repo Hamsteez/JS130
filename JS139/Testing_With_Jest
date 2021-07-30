@@ -1,0 +1,47 @@
+Testing With Jest
+  [x] Testing terminology
+  [x] Jest
+  [x] expect and matchers (toBe and toEqual especially)
+  [x] SEAT approach
+  [x] Understanding code coverage
+  [x] Writing tests
+
+  A Test Suite is the entire set of tests that accompanies your program or application. You can think of it as all of the tests 
+    for a project.
+  A Test is a specific situation or context that you're attempting to test. For instance, a test may attempt to verify that you 
+    get an error message when you try to log in with the wrong password. Each test can contain multiple assertions. You may 
+    sometimes see tests referred to as specs.
+  An Assertion is the verification step that confirms that your program did what it should. In particular, many assertions test 
+    whether the return value of a function or method matches the expected results. You can make multiple assertions within a test. 
+    Assertions are also called expectations.
+
+  test suite contains many tests, test can contain many assertions
+
+  filename.test.js
+  jest filename.test.js
+  jest --> runs all test.js files
+  note --> may need a jest.config.js file (empty)
+
+  Need to export file with module.exports = '';
+  In test.js file, need to import with const '' = require("./file path")
+  Skip test with `xtest`
+  Group tests with 
+  describe('', () = {
+    test('', () => {
+      expect(something).toBe(something); //or use toEqual
+    })
+  });
+  toBe	Fails unless actual value === expected value
+  toEqual	Same as toBe but can also test for object equality, e.g., {a: 1} is equal to {a: 1}
+
+- SEAT approach
+  Set up the necessary objects.
+  Execute the code against the object we're testing.
+  Assert the results of execution.
+  Tear down and clean up any lingering artifacts.
+
+  Setup - use `beforeEach(() => {})`
+  Teardown you would use `afterEach()`
+
+- Code coverage
+  jest --coverage filename.test.js

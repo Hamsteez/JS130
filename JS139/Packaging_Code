@@ -1,0 +1,67 @@
+Packaging Code
+  [x] Project directory layout
+  [x] what is transpilation
+  [x] npm and npx
+  [x] package.json and package-lock.json
+  [x] npm scripts
+  [x] packaging projects
+
+- Layout 
+  Some specific files and directories must be present.
+  Some kinds of data must be in specific locations.
+  Some data must use well-defined formats.
+
+-Transpilation
+  Transpilation is the process of converting source code written in one language into another language with a similar level of 
+    abstraction to the original code.
+
+- npx
+  npx merely checks for a local installation first. If it can't find the package locally or globally, it downloads and uses a 
+    temporary version of the named package.
+
+- package.json and package-lock.json
+  npm init creates a package.json file
+  The package.json file is, in effect, a configuration file written in JSON format. 
+  project dependencies -- packages that our project needs 
+  Npm’s main strength is its ability to manage a project’s dependencies. 
+  npm install --> installs the dependencies that we added to the package.json directory, then builds a new file named 
+    package-lock.json
+  The package-lock.json file shows the precise versions of the packages that npm installed. It also shows the dependencies of each 
+    package and the version of each dependency.
+  Must add both .json files to git repo
+  You can add a new dependency to your project and package.json in one of two ways:
+  - Directly add the dependency to package.json
+  - Use npm install
+  Delete a dependency
+  npm uninstall --> deletes it from node_modules only
+  To remove from package.json dependencies --> use --save option
+  To remove from dev dependencies --> --save-dev
+  ^ Likewise, same way to add to those dependencies
+  npm prune removes dependencies that were manually removed from package.json
+  -g flag installs globally but typically you should install things locally
+
+- npm scripts
+  after adding script, use: npm run scriptname
+
+- packaging projects
+  Create a package.json file.
+  Provide values for the name, version, and main fields:
+    name is the name of your package.
+    version is the initial module version.
+    main is the name of the file that Node will load when someone imports your package.
+  Publish your node package.
+  npm publish --access public
+    need to login to npm account
+  
+├── dist
+│   ├── todo.js
+│   └── todolist.js
+├── lib
+│   ├── todo.js
+│   └── todolist.js
+├── index.js
+├── node_modules
+├── package-lock.json
+├── package.json
+└── test
+    └── todolist.test.js
